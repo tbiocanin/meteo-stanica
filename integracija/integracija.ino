@@ -2,10 +2,23 @@ int zelenaLedSv = 2;
 int plavaLed = 3;
 int zutaLed = 4;
 int crvenaLed = 5;
+int peca = 6;
 float tempUlaz;
 int tempAnalogniPin = A5;
 int sensorPin = A4; //analogni ulaz na kom se nalazi fotootpornik 
 int photoCellIn = 0; //ulazna vrednost fotootpornika
+
+
+void pecaVristi(){
+ 
+ tone(peca, 1000);
+  
+}
+
+void pecaNeVristi(){
+  noTone(peca);
+}
+
 
 float temperaturaF(int pin) {
   float tempVrednost = analogRead(pin); //ucitaj vrednost sa analognog ulaza
@@ -45,16 +58,19 @@ void loop()
      toggle(led);
     }
     digitalWrite(plavaLed, HIGH);
+    pecaNeVristi();
   } else if (temperatura > 16 && temperatura < 30) {
     for(int led = 3; led < 6; led ++){
      toggle(led);
     }
     digitalWrite(zutaLed, HIGH);
+    pecaNeVristi();
   } else { 
     for(int led = 3; led < 6; led ++){
      toggle(led);
     }
     digitalWrite(crvenaLed, HIGH);
+    pecaVristi();
   }
   
   
