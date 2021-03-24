@@ -1,14 +1,14 @@
-int zelenaLedSv = 2;
-int plavaLed = 3;
-int zutaLed = 4;
-int crvenaLed = 5;
-int peca = 6;
+int zelenaLedSv = 2; //digitalni ulaz zelene diode
+int plavaLed = 3; //digitalni ulaz plave diode
+int zutaLed = 4; //digitalni ulaz zute diode
+int crvenaLed = 5; //digitalni ulaz crvene diode
+int peca = 6; //digitalni ulaz za pecu
 float tempUlaz;
-int tempAnalogniPin = A5;
+int tempAnalogniPin = A5; //analogni ulaz na kom se nalazi senzor za temperaturu
 int sensorPin = A3; //analogni ulaz na kom se nalazi fotootpornik 
-int gasSenzor = A4;
+int gasSenzor = A4; //analogni ulaz na kom se nalazi gas senzor
 int photoCellIn = 0; //ulazna vrednost fotootpornika
-int granicnaVrednost = 170;
+int granicnaVrednost = 170; //granicna vrednost za CO u ppm-ovima
 
 
 void pecaVristi(){
@@ -80,7 +80,7 @@ void loop()
   photoCellIn = analogRead(sensorPin)/4; //reskaliranje na interval od 0-255 zbog LED sijalice
   analogWrite(zelenaLedSv, photoCellIn); //za vrednost koju je fotootpornik pokupio, sijalica ce da svetli
   
-  if(kolicinaCO > granicnaVrednost && temperatura > 31){
+  if(kolicinaCO > granicnaVrednost && temperatura > 31){ //granicna vrednost
     pecaVristi();
     delay(100);
     pecaVristi();
