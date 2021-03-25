@@ -1,5 +1,5 @@
-int zelenaLedSv = 2; //digitalni ulaz zelene diode
-int plavaLed = 3; //digitalni ulaz plave diode
+int zelenaLedSv = 3; //digitalni ulaz zelene diode
+int plavaLed = 2; //digitalni ulaz plave diode
 int zutaLed = 4; //digitalni ulaz zute diode
 int crvenaLed = 5; //digitalni ulaz crvene diode
 int peca = 6; //digitalni ulaz za pecu
@@ -8,7 +8,7 @@ int tempAnalogniPin = A5; //analogni ulaz na kom se nalazi senzor za temperaturu
 int sensorPin = A3; //analogni ulaz na kom se nalazi fotootpornik 
 int gasSenzor = A4; //analogni ulaz na kom se nalazi gas senzor
 int photoCellIn = 0; //ulazna vrednost fotootpornika
-int granicnaVrednost = 170; //granicna vrednost za CO u ppm-ovima
+int granicnaVrednost = 170;
 
 
 void pecaVristi(){
@@ -31,11 +31,13 @@ float temperaturaF(int pin) {
   return temperatura;
 }
 
-void toggle(int pin){
+void toggle(){
 
   int ledStateOff = 0; //ugasena led 
-  if(digitalRead(pin) == 1) { //proveri da li led radi
-   digitalWrite(pin, ledStateOff); //ako radi, ugasi je
+  for(int led = 2; led<6; led++){
+    if(digitalRead(led) == 1) { //proveri da li led radi
+    digitalWrite(led, ledStateOff); //ako radi, ugasi je
+    }
   }
 }
 
@@ -57,21 +59,15 @@ void loop()
   float kolicinaCO = analogRead(gasSenzor);
 
   if(temperatura >-50 && temperatura < 15) {
-    for(int led = 3; led < 6; led ++){
-     toggle(led);
-    }
+    toggle();
     digitalWrite(plavaLed, HIGH);
     pecaNeVristi();
   } else if (temperatura > 16 && temperatura < 30) {
-    for(int led = 3; led < 6; led ++){
-     toggle(led);
-    }
+    toggle();
     digitalWrite(zutaLed, HIGH);
     pecaNeVristi();
   } else { 
-    for(int led = 3; led < 6; led ++){
-     toggle(led);
-    }
+    toggle();
     digitalWrite(crvenaLed, HIGH);
     pecaVristi();
   }
